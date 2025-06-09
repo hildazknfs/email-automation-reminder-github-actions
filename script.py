@@ -1,6 +1,5 @@
 import smtplib
 import gspread
-import logging
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from oauth2client.service_account import ServiceAccountCredentials
@@ -14,8 +13,6 @@ EMAIL_SMTP_PORT = int(os.getenv("EMAIL_SMTP_PORT"))
 CREDENTIALS_FILE = os.getenv("CREDENTIALS_FILE")
 SPREADSHEET_NAME = os.getenv("SPREADSHEET_NAME")
 
-
-# Spreadsheet column names used in code
 COL_ID = "ID Issue"
 COL_APP = "Application"
 COL_SO = "Service Owner"
@@ -24,21 +21,10 @@ COL_TYPE = "Type"
 COL_DESC = "Issue Description"
 COL_STATUS = "Status"
 
-# Setup logging to file (append mode, simple message format)
-log_dir = os.path.join(os.path.dirname(__file__), 'logs')
-logging.basicConfig(
-    filename="log.txt",
-    filemode="a",
-    format="%(message)s",
-    level=logging.INFO
-)
-
 def get_log_timestamp():
-    # Return current datetime string with milliseconds for logs
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
 
 def load_spreadsheet_data():
-    # Authenticate and load all records from Google Sheet
     try:
         scope = [
             "https://spreadsheets.google.com/feeds",
@@ -50,21 +36,17 @@ def load_spreadsheet_data():
         data = sheet.get_all_records()
         return data
     except Exception as e:
-        # Log error if fails to load spreadsheet
-        logging.error(f"{get_log_timestamp()} | Spreadsheet error: {e}")
+        print(f"{get_log_timestamp()} | Spreadsheet error: {e}")
         return None
 
 def filter_open_issues(data):
-    # Return list of records where status is "Open"
     return [row for row in data if row.get(COL_STATUS) == "Open"]
 
 def extract_recipient_emails(open_issues):
-    # Get unique service owner emails from open issues
     emails = {row.get(COL_SO_EMAIL) for row in open_issues if row.get(COL_SO_EMAIL)}
     return list(emails)
 
 def build_email_html(issues):
-    # Create HTML table for email body with open issues data
     rows_html = ""
     for row in issues:
         rows_html += f"""
@@ -127,7 +109,6 @@ def build_email_html(issues):
     return html
 
 def build_email_text(issues):
-    # Build plain text version of email content
     lines = ["Dear Team,", "", "This is a kind reminder regarding the following open issues that are still pending resolution. Kindly review and take necessary action:", ""]
     header = f"{COL_ID}\t{COL_APP}\t{COL_SO}\t{COL_SO_EMAIL}\t{COL_TYPE}\t{COL_DESC}\t{COL_STATUS}"
     lines.append(header)
@@ -143,7 +124,6 @@ def build_email_text(issues):
     return "\n".join(lines)
 
 def send_email(recipients, subject, html_content, text_content):
-    # Send email with both plain text and HTML parts to all recipients
     try:
         msg = MIMEMultipart("alternative")
         msg["From"] = EMAIL_SENDER
@@ -153,42 +133,38 @@ def send_email(recipients, subject, html_content, text_content):
         msg.attach(MIMEText(text_content, "plain"))
         msg.attach(MIMEText(html_content, "html"))
 
-        # Connect to SMTP server with TLS, login and send mail
         with smtplib.SMTP(EMAIL_SMTP_SERVER, EMAIL_SMTP_PORT) as server:
             server.starttls()
             server.login(EMAIL_SENDER, EMAIL_PASSWORD)
             server.sendmail(EMAIL_SENDER, recipients, msg.as_string())
     except Exception as e:
-        # Raise error if sending fails
         raise RuntimeError(f"Failed to send email: {e}")
 
 def main():
-    # Main function to orchestrate loading data, filtering, email composing, and sending
     try:
         data = load_spreadsheet_data()
         if data is None:
-            logging.info(f"{get_log_timestamp()} | Spreadsheet error | Skipped")
+            print(f"{get_log_timestamp()} | Spreadsheet error | Skipped")
             return
 
         open_issues = filter_open_issues(data)
         if not open_issues:
-            logging.info(f"{get_log_timestamp()} | 0 open issues | No email sent")
+            print(f"{get_log_timestamp()} | 0 open issues | No email sent")
             return
 
         recipients = extract_recipient_emails(open_issues)
         if not recipients:
-            logging.info(f"{get_log_timestamp()} | {len(open_issues)} open issues | 0 recipients | No email sent")
+            print(f"{get_log_timestamp()} | {len(open_issues)} open issues | 0 recipients | No email sent")
             return
 
         email_html = build_email_html(open_issues)
         email_text = build_email_text(open_issues)
-        # Send reminder email with subject
+
         send_email(recipients, "[Reminder] Outstanding Open Issues – Action Needed", email_html, email_text)
-        logging.info(f"{get_log_timestamp()} | {len(open_issues)} open issues | {len(recipients)} recipients | Email sent")
+        print(f"{get_log_timestamp()} | {len(open_issues)} open issues | {len(recipients)} recipients | Email sent")
 
     except Exception as e:
-        # Log any other unexpected errors in the script
-        logging.info(f"{get_log_timestamp()} | Script error: {e} | Skipped")
+        print(f"{get_log_timestamp()} | Script error: {e} | Skipped")
 
 if __name__ == "__main__":
     main()
