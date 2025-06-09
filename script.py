@@ -6,14 +6,14 @@ from email.mime.text import MIMEText
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 import os
-import sys
 
-sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
-# Config constants from config.py (email, spreadsheet, credentials)
-from config import (
-    EMAIL_SENDER, EMAIL_PASSWORD, EMAIL_SMTP_SERVER, EMAIL_SMTP_PORT,
-    CREDENTIALS_FILE, SPREADSHEET_NAME
-)
+EMAIL_SENDER = os.getenv("EMAIL_SENDER")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+EMAIL_SMTP_SERVER = os.getenv("EMAIL_SMTP_SERVER")
+EMAIL_SMTP_PORT = int(os.getenv("EMAIL_SMTP_PORT"))
+CREDENTIALS_FILE = os.getenv("CREDENTIALS_FILE")
+SPREADSHEET_NAME = os.getenv("SPREADSHEET_NAME")
+
 
 # Spreadsheet column names used in code
 COL_ID = "ID Issue"
