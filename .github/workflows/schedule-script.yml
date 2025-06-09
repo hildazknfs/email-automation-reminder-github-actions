@@ -4,9 +4,9 @@ on:
   # Bisa dipicu manual dari GitHub UI
   workflow_dispatch:
 
-  # Jadwalkan otomatis setiap hari jam 07:00 UTC (sesuaikan waktu sesuai kebutuhan)
+  # Jadwalkan otomatis setiap hari jam 10:00 WIB (03:00 UTC)
   schedule:
-    - cron: '0 7 * * *'  
+    - cron: '0 3 * * *'
 
 jobs:
   run-script:
@@ -17,7 +17,7 @@ jobs:
       EMAIL_SMTP_SERVER: ${{ secrets.EMAIL_SMTP_SERVER }}
       EMAIL_SMTP_PORT: ${{ secrets.EMAIL_SMTP_PORT }}
       SPREADSHEET_NAME: ${{ secrets.SPREADSHEET_NAME }}
-      CREDENTIALS_FILE: credentials.json  # fixed filename
+      CREDENTIALS_FILE: credentials.json
 
     steps:
       - uses: actions/checkout@v3
@@ -28,8 +28,7 @@ jobs:
           python-version: '3.10'
 
       - name: Create credentials.json from secret
-        run: |
-          echo '${{ secrets.CREDENTIALS_JSON }}' > credentials.json
+        run: echo '${{ secrets.CREDENTIALS_JSON }}' > credentials.json
 
       - name: Install dependencies
         run: |
