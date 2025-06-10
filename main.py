@@ -5,10 +5,6 @@ from email.mime.text import MIMEText
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 import os
-from dotenv import load_dotenv
-
-# Load environment variables from .env file
-load_dotenv()
 
 EMAIL_SENDER = os.getenv("EMAIL_SENDER")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
