@@ -1,10 +1,8 @@
 name: Scheduled Script Runner
 
 on:
-  # Bisa dipicu manual dari GitHub UI
   workflow_dispatch:
 
-  # Jadwalkan otomatis setiap hari jam 10:00 WIB (03:00 UTC)
   schedule:
     - cron: '0 3 * * *'
 
