@@ -30,6 +30,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: 🔐 Decode credentials.json
+        run: |
+          echo "${{ secrets.CREDENTIALS_FILE }}" | base64 -d > credentials.json
+
       - name: 🚀 Run Python script
         run: |
           echo "=== Running main.py at $(date) ==="
