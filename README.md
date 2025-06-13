@@ -1,7 +1,6 @@
 # Automated Email Reminder System
 
-This repository contains an automated email reminder system that reads recipient data and messages from a Google Spreadsheet and sends out scheduled email reminders.  
-Originally built during my internship as a **Security Assurance Intern** using **Google Apps Script**, this system has been re-implemented using **Python**, **GitHub Actions**, and the **Google Sheets API** for broader automation capabilities in CI/CD environments.
+This repository contains an automated email reminder system that reads recipient data and messages from a Google Spreadsheet and sends out scheduled email reminders. Originally built during my internship as a **Security Assurance Intern** using **Google Apps Script**, this system has been re-implemented using **Python**, **GitHub Actions**, and the **Google Sheets API** for broader automation capabilities in CI/CD environments.
 
 ---
 
