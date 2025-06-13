@@ -49,34 +49,23 @@ It fetches recipient details and messages, and then sends emails via Gmail SMTP.
 
 ```bash
 .
-├── .github/workflows/
-│   └── email_reminder.yml    # GitHub Actions workflow definition
-├── send_email.py             # Python script to send emails
-├── requirements.txt          # Python dependencies
-└── README.md                 # Project documentation
-
----
-
-## How it Works
-1. GitHub Actions is triggered automatically on a schedule (every Tuesday and Thursday at 10:00 AM WIB).
-
-2. The credentials file is reconstructed from the base64-encoded GitHub Secret.
-
-3. The Python script authenticates with the Google Sheets API using a service account.
-
-4. Recipient data and messages are fetched from the Google Spreadsheet.
-
-5. Emails are sent via Gmail SMTP using the credentials provided.
+├── .github/
+│   └── workflows/
+│       └── email_reminder.yml    # GitHub Actions workflow definition
+├── send_email.py                 # Python script to send emails
+├── requirements.txt              # Python dependencies
+└── README.md                     # Project documentation
+```
 
 ---
 
 ## How It Works
 
-1. GitHub Actions is triggered automatically on a schedule (every Tuesday and Thursday at 10:00 AM WIB).
-2. The credentials file is reconstructed from the base64-encoded GitHub Secret.
-3. The Python script authenticates with the Google Sheets API using a service account.
-4. Recipient data and messages are fetched from the Google Spreadsheet.
-5. Emails are sent via Gmail SMTP using the provided credentials.
+1. GitHub Actions is triggered automatically on a schedule (every Tuesday and Thursday at 10:00 AM WIB).  
+2. The credentials file is reconstructed from the base64-encoded GitHub Secret.  
+3. The Python script authenticates with the Google Sheets API using a service account.  
+4. Recipient data and messages are fetched from the Google Spreadsheet.  
+5. Emails are sent via Gmail SMTP using the provided credentials.  
 
 ---
 
@@ -86,7 +75,15 @@ It fetches recipient details and messages, and then sends emails via Gmail SMTP.
 
 - A Google Service Account with access to the target spreadsheet  
 - A Gmail account with an App Password enabled (required if 2FA is active)  
-- A GitHub repository to host the workflow and Python scripts
+- A GitHub repository to host the workflow and Python scripts  
+
+### Configuration Steps
+
+1. Create a Google Cloud project and enable the Google Sheets API.  
+2. Generate a service account and download the credentials JSON file.  
+3. Encode the credentials file using base64 and store it as a GitHub Secret.  
+4. Add other necessary secrets to GitHub (e.g., Gmail credentials, spreadsheet ID).  
+5. Configure the GitHub Actions workflow to run on your desired schedule.  
 
 ---
 
@@ -95,8 +92,13 @@ It fetches recipient details and messages, and then sends emails via Gmail SMTP.
 The automation runs based on the following cron schedule:
 
 ```yaml
-cron: '0 3 * * 2,4'  # 03:00 UTC = 10:00 AM (WIB) every Tuesday and Thursday
+on:
+  schedule:
+    - cron: '0 3 * * 2,4'  # 03:00 UTC = 10:00 AM (WIB) every Tuesday and Thursday
+```
+
+This schedule will trigger the email reminder system twice a week.
 
 ---
 
-Thank your for reading!
+Thank you for reading!
