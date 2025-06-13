@@ -1,0 +1,7 @@
+ID Issue,Application,Service Owner,Service Owner Email,Type,Issue Description,Status
+ISS-001,AppZilla,Bebet Sutarjo,bebet@company.com,Security,Lorem ipsum dolor sit amet,Open
+ISS-002,Taskinator,Uncu Parnowo,uncu.parnowo@company.com,Performance,Consectetur adipiscing elit,Open
+ISS-003,Invoicely,Gondes Marbun,gondes@company.com,Security,Sed do eiusmod tempor incididunt ut labore,In Progress
+ISS-004,Snappify,Yanto Sungsang,yanto_sungsang@company.com,Bug,Ut enim ad minim veniam,Closed
+ISS-005,KlikIt,Fulan Berantakan,fulan@company.com,Crash,Quis nostrud exercitation ullamco laboris nisi,Open
+ISS-006,DataMonster,Onyet Ruswandi,onyet.rus@company.com,Security,Duis aute irure dolor in reprehenderit,Open
