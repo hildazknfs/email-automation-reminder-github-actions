@@ -36,6 +36,6 @@ jobs:
 
       - name: 🚀 Run Python script
         run: |
-          echo "=== Running main.py at $(date) ==="
+          echo "Running main.py at $(date)"
           python main.py
-          echo "=== Script finished at $(date) ==="
+          echo "Finished at $(date)"
