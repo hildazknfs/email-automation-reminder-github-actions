@@ -52,10 +52,10 @@ It fetches recipient details and messages, and then sends emails via Gmail SMTP.
 │   └── workflows/
 │       └── schedule-script.yml    # GitHub Actions workflow definition
 ├── data
-│   └── issues_sample.csv         # This is a sample CSV file to show the expected structure of issue data
-├── main.py                       # Python script to send emails
-├── requirements.txt              # Python dependencies
-└── README.md                     # Project documentation
+│   └── issues_sample.csv          # This is a sample CSV file to show the expected structure of issue data
+├── main.py                        # Python script to send emails
+├── requirements.txt               # Python dependencies
+└── README.md                      # Project documentation
 ```
 
 ---
