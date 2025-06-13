@@ -52,7 +52,7 @@ It fetches recipient details and messages, and then sends emails via Gmail SMTP.
 ├── .github/
 │   └── workflows/
 │       └── email_reminder.yml    # GitHub Actions workflow definition
-├── send_email.py                 # Python script to send emails
+├── main.py                 # Python script to send emails
 ├── requirements.txt              # Python dependencies
 └── README.md                     # Project documentation
 ```
