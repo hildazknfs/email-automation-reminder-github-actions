@@ -80,7 +80,8 @@ def build_email_html(issues):
     </head>
     <body>
         <p>Dear Team,</p>
-        <p>Hope this message finds you well. This is a gentle reminder regarding the following issues that are still <strong>Open</strong> and require your actions.</p>
+        <p>Hope this message finds you well.</p>
+        <p>This is a gentle reminder regarding the following issues that are still <strong>Open</strong> and require your actions.</p>
         <table>
             <thead>
                 <tr>
@@ -92,8 +93,8 @@ def build_email_html(issues):
                 {rows_html}
             </tbody>
         </table>
-        <p>We kindly ask for your support in resolving these items at your earliest convenience. Should you need any assistance or clarification, please feel free to reach out.<br>Thank you for your attention and cooperation.<br>
-        Best regards,<br><strong>Security Assurance</strong></p>
+        <p>We kindly ask for your support in resolving these items at your earliest convenience. Should you need any assistance or clarification, please feel free to reach out.<br>Thank you for your attention and cooperation.</p>
+        <strong><p>Best regards,<br>Security Assurance</p></strong>
     </body>
     </html>
     """
